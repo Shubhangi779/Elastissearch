@@ -30,6 +30,10 @@ public class Library  {
 	@OneToMany(mappedBy = "library", cascade = CascadeType.ALL)
 	private Set<Book> books;
 	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "library", cascade = CascadeType.ALL)
+	private Set<Address> address;
+	
 	public Library() {
 		
 	}
