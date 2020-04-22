@@ -19,12 +19,13 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	BookRepository  bookRepository;
 
-	/*
-	 * public List<Book> getAllBooks(int libraryId){
-	 * if(!libraryRepository.existsById(libraryId)) throw new
-	 * NotFoundException("Library Not Found!"); return
-	 * bookRepository.findByLibraryId(libraryId); }
-	 */
+        public List<Book> getAllBooks(int libraryId){
+		
+		if(!libraryRepository.existsById(libraryId)) throw new
+		NotFoundException("Library Not Found!");
+		return bookRepository.findByLibraryId(libraryId); 
+		}
+
 	@Override
 	public Book addBook(int libraryId, Book bookUpdated) {
 
