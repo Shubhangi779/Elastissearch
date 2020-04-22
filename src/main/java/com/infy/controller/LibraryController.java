@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.infy.exception.NotFoundException;
+import com.infy.model.Address;
 import com.infy.model.Book;
 import com.infy.model.Library;
 import com.infy.repository.BookRepository;
 import com.infy.repository.LibraryRepository;
+import com.infy.service.AddressService;
 import com.infy.service.BookService;
 import com.infy.service.LibraryService;
 
@@ -29,36 +31,39 @@ public class LibraryController {
 	LibraryService libraryService;
 	@Autowired
 	BookService bookService;
+	@Autowired
+	AddressService addressService;
 
 	
-	@GetMapping("/library")
+	@GetMapping(value = "/library")
 	public List<Library> getAllLibraries(){
 		return libraryService.getAllLibrary();
 	}
 	
-	@PostMapping("/library")
+	@PostMapping(value="/library")
     public Library createLibrary(@Valid @RequestBody Library library) {
 		System.out.println("******* "+library.getBooks());
         return libraryService.createLibrary(library);
     }
 	
-	@PutMapping("/library/{libraryId}")
+	@PutMapping(value="/library/{libraryId}")
 	    public Library updateLibrary(@PathVariable int libraryId, @Valid @RequestBody Library libraryUpdated) {
 	      return libraryService.updateLibrary(libraryId, libraryUpdated);
 	    }
 	
-	@DeleteMapping("/library/{libraryId}")
+	@DeleteMapping(value="/library/{libraryId}")
 	    public String deleteLibrary(@PathVariable int libraryId) {
 	       return libraryService.deletelibrary(libraryId);
 	    }
 	
 	//-----------------------------Book APIs-------------------------------
 	
-	/*
-	 * @GetMapping(value= "library/{libraryId}/books") public List<Book>
-	 * getAllBooks(@PathVariable int libraryId){ return
-	 * bookService.getAllBooks(libraryId); }
-	 */
+	
+	  @GetMapping(value= "library/{libraryId}/books") 
+	  public List<Book> getAllBooks(@PathVariable int libraryId){ 
+		  return bookService.getAllBooks(libraryId);
+	  }
+	 
 	
 	@PostMapping(value="/library/{libraryId}/books")
 	    public Book addBook(@PathVariable int libraryId, @Valid @RequestBody Book bookData) {
@@ -74,5 +79,12 @@ public class LibraryController {
 	@DeleteMapping(value="/library/{libraryId}/book/{bookId}")
 	public String deleteBook (@PathVariable int libraryId, @PathVariable int bookId) {
 		return bookService.deleteBook(libraryId, bookId);
+	}
+	
+	//-------------------Inserting library address(City, State)----------------
+	
+	@PostMapping(value = "/library/{libraryId}")
+	public Address insertAddress(@PathVariable int libraryId,@RequestBody Address address ) {
+		return addressService.insertAddress(libraryId, address);
 	}
 }
