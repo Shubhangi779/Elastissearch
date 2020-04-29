@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@Document(indexName = "book", type= "book")
 @Entity
 @JsonIgnoreProperties 
 public class Book {

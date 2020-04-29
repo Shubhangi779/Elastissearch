@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
+@Document(indexName = "library", type= "library")
 @Entity
 @Table(name = "library")
 @JsonIgnoreProperties
